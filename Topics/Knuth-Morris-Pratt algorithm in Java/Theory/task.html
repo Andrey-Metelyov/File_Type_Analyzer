@@ -1,0 +1,87 @@
+<h2>Knuth-Morris-Pratt algorithm in Java</h2>
+<html>
+ <head></head>
+ <body>
+  <p>The Knuth-Morris-Pratt algorithm is an approach that allows solving the substring searching problem in linear time in the worst case. Similarly to the naive one, the algorithm performs a symbol-by-symbol comparison of a pattern with each substring of a text. To reduce the number of comparisons, the algorithm uses the prefix function to identify an optimal pattern shift in case of symbols mismatch. In this topic, we will learn how to implement this algorithm in Java.</p> 
+  <h2>Implementing a method for calculation of the prefix function</h2> 
+  <p>First, let's see how we can implement a method for calculation of the prefix function:</p> 
+  <pre><code class="language-java">public static int[] prefixFunction(String str) {
+    /* 1 */
+    int[] prefixFunc = new int[str.length()];
+
+    /* 2 */
+    for (int i = 1; i &lt; str.length(); i++) {
+        /* 3 */
+        int j = prefixFunc[i - 1];
+
+        while (j &gt; 0 &amp;&amp; str.charAt(i) != str.charAt(j)) {
+            j = prefixFunc[j - 1];
+        }
+
+        /* 4 */
+        if (str.charAt(i) == str.charAt(j)) {
+            j += 1;
+        }
+
+        /* 5 */
+        prefixFunc[i] = j;
+    }
+
+    /* 6 */
+    return prefixFunc;
+}</code></pre> 
+  <p>The method takes a string <code class="language-java">str</code> as an argument and returns the prefix function it. The steps of the method are:</p> 
+  <ol> 
+   <li>Create an array of length <code class="language-java">str.length()</code> for storing the prefix function. Recall that by convention the first value of the array should be equal to zero. Since in Java an array of ints is initialized with zeroes by default, we needn't care about it.</li> 
+   <li>Calculate the values of the prefix function for each substring of <code class="language-java">str</code> in the <code class="language-java">for</code> loop. At each iteration, we try to find the longest border of the previous substring that can be extended by the current symbol.</li> 
+   <li>Initially, the variable <code class="language-java">j</code> is equal to the length of the previous longest border. Then, in the <code class="language-java">while</code> loop, we consider the next longest borders until an appropriate extension is found or while all borders are examined. If the first previous border can be extended, the <code class="language-java">for</code> loop will be omitted.</li> 
+   <li>Check if the current border indeed can be extended and if it is so, increase its length.</li> 
+   <li>Assign the length of the current border to the current substring.</li> 
+   <li>Return the <code class="language-java">prefixFunc</code> array as a final result.</li> 
+  </ol> 
+  <h2>Implementing the Knuth-Morris-Pratt algorithm</h2> 
+  <p>Using the <code class="language-java">prefixFunction</code> method, the Knuth-Morris-Pratt algorithm can be implemented as follows:</p> 
+  <pre><code class="language-java">public static List&lt;Integer&gt; KMPSearch(String text, String pattern) {
+    /* 1 */
+    int[] prefixFunc = prefixFunction(pattern);
+    ArrayList&lt;Integer&gt; occurrences = new ArrayList&lt;Integer&gt;();
+    int j = 0;
+    /* 2 */
+    for (int i = 0; i &lt; text.length(); i++) {
+        /* 3 */
+        while (j &gt; 0 &amp;&amp; text.charAt(i) != pattern.charAt(j)) {
+            j = prefixFunc[j - 1];
+        }
+        /* 4 */
+        if (text.charAt(i) == pattern.charAt(j)) {
+            j += 1;
+        }
+        /* 5 */
+        if (j == pattern.length()) {
+            occurrences.add(i - j + 1);
+            j = prefixFunc[j - 1];
+        }
+    }
+   /* 6 */
+    return occurrences;
+}</code></pre> 
+  <p>The method takes two strings, a <code class="language-java">pattern</code> and a <code class="language-java">text</code>, as arguments and returns a list of all occurrences of the pattern in the text. The steps of the method are:</p> 
+  <ol> 
+   <li>Calculate the prefix function for the pattern and create a list for storing all occurrences. Also, create a variable <code class="language-java">j</code> to store the index of the current symbol of the pattern.</li> 
+   <li>Perform a symbol-by-symbol comparison of the pattern with the current substring of the text using the <code class="language-java">for</code> loop.</li> 
+   <li>If the corresponding symbols are not matched, try to find the longest prefix of the pattern that can be extended by the current symbol of the text using the precalculated prefix function.</li> 
+   <li>If the corresponding symbols are matched, increase the value of <code class="language-java">j</code>, that is, move to the next symbol of the pattern.</li> 
+   <li>if the value of <code class="language-java">j</code> is equal to the length of the pattern, an occurrence is found. We need to add the corresponding index to the list of all occurrences. In this case, the index of the pattern symbol to be considered at the next iteration is equal to <code class="language-java">prefixFunc[j-1]</code> since we know that the previous ones already match.</li> 
+   <li>Finally, we return the list of all occurrences.</li> 
+  </ol> 
+  <h2>Examples</h2> 
+  <p>Below are several examples of how to use the method:</p> 
+  <pre><code class="language-java">List&lt;Integer&gt; occurrences = KMPSearch("ABACABAD", "ABA");
+System.out.println(occurrences); // [0, 4]
+
+List&lt;Integer&gt; occurrences = KMPSearch("ABABA", "ABA");
+System.out.println(occurrences); // [0, 2]</code></pre> 
+  <h2>Summary</h2> 
+  <p>In this topic, we have learned how to implement the Knuth-Morris-Pratt algorithm in Java. We first have implemented a method for finding the prefix function, and then have applied this method to find all occurrences of a string in another string. Now, you can use this approach to efficiently solve the substring searching problem.</p>
+ </body>
+</html>
