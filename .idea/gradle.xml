@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
@@ -18,6 +19,13 @@
             <option value="$PROJECT_DIR$/Topics/Knuth-Morris-Pratt algorithm in Java/Finding a string in a matrix (v2)" />
             <option value="$PROJECT_DIR$/Topics/Knuth-Morris-Pratt algorithm in Java/Non-overlapping occurrences" />
             <option value="$PROJECT_DIR$/Topics/Knuth-Morris-Pratt algorithm in Java/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Alternating Fibonacci numbers" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Find a substring" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Fix the method to print strings in the reverse order" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/K-combination" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/N-th power" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Number of decompositions" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Theory" />
             <option value="$PROJECT_DIR$/Topics/Searching a substring in Java/All occurrences" />
             <option value="$PROJECT_DIR$/Topics/Searching a substring in Java/Non-overlapping occurrences" />
             <option value="$PROJECT_DIR$/Topics/Searching a substring in Java/The first occurrence" />
