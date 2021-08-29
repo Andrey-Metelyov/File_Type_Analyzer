@@ -1,0 +1,53 @@
+<h2>Searching a substring in Java</h2>
+<html>
+ <head></head>
+ <body>
+  <p>Problems connected with substring searching often arise in programming. For example, developers that work on a text editor should provide functionality allowing users to search for a substring in text. Or, engineers who implement a browser should allow users to search for a particular word on a page.</p> 
+  <p>There exist several substring searching algorithms, each having its own pros and cons. In this topic, we will consider one of the simplest substring searching algorithms and will see how this algorithm can be implemented in Java.</p> 
+  <h2>The simplest algorithm</h2> 
+  <p>Below is an implementation of the simplest substring searching algorithm in Java:</p> 
+  <pre><code class="language-java">public static boolean containsPattern(String text, String pattern) {
+    if (text.length() &lt; pattern.length()) {
+        return false;
+    }
+
+    for (int i = 0; i &lt; text.length() - pattern.length() + 1; i++) {
+        boolean patternIsFound = true;
+
+        for (int j = 0; j &lt; pattern.length(); j++) {
+            if (text.charAt(i + j) != pattern.charAt(j)) {
+                patternIsFound = false;
+                break;
+            }
+        }
+        
+        if (patternIsFound) {
+            return true;
+        }
+    }
+    
+    return false;
+}</code></pre> 
+  <p>The method <code class="language-java">containsPattern</code> takes two strings named<em> </em><code class="language-java">text</code> and<em> </em><code class="language-java">pattern</code><em> </em>as arguments and returns <code class="language-java">true</code> if the <code class="language-java">pattern</code> is contained as a substring in the<em> </em><code class="language-java">text</code> and <code class="language-java">false</code> otherwise.</p> 
+  <ol> 
+   <li>First, we check if the length of the <code class="language-java">text</code> is less than the length of the <code class="language-java">pattern</code>. If it's so, we should return <code class="language-java">false</code> since in this case there is no <code class="language-java">pattern</code> in the <code class="language-java">text</code>.</li> 
+   <li>Then, we start moving along the text and compare the corresponding symbols of the <code class="language-java">pattern</code> and the <code class="language-java">text</code>. At the beginning of each iteration, the <code class="language-java">pattern</code> is considered to be found. If there is a mismatch in the corresponding symbols, we set the flag <code class="language-java">patternIsFound</code> to <code class="language-java">false</code> and break the iteration. If at the end of some iteration the flag is not changed, we should return <code class="language-java">true</code>, since this means that the <code class="language-java">pattern</code> is found.</li> 
+   <li>If none of the iterations was successful, we need to return <code class="language-java">false</code> indicating that there is no <code class="language-java">pattern</code> in the <code class="language-java">text</code>.</li> 
+  </ol> 
+  <h2>Examples</h2> 
+  <p>Below are several examples of how to use the method:</p> 
+  <pre><code class="language-java">containsPattern("ACBACAD", "ACA"); // true
+containsPattern("Substring", "string"); // true
+containsPattern("Hello, world!", "Hi!"); // false</code></pre> 
+  <p>And here is some corner cases:</p> 
+  <pre><code class="language-java">containsPattern("", ""); // true
+containsPattern("abc", ""); // true
+containsPattern("abc", "abc"); // true
+containsPattern("abc", "abcd"); // false</code></pre> 
+  <p>Note that the <code class="language-java">String</code> class in Java has a similar method for strings called <code class="language-java">contains</code>. Below is an example of how this method works:</p> 
+  <pre><code class="language-java">String s = "Hello";
+s.contains("ello"); // true</code></pre> 
+  <h2>Summary</h2> 
+  <p>In this topic, we have learned how the simplest substring searching algorithm can be implemented in Java and have considered several examples of how to use the implemented method. Being simple in understanding and implementing, this algorithm, however, has a disadvantage: for a pattern with length $n$ and a text with length $m$, its time complexity is $O(n \cdot m)$, which might be too slow for large strings. In the following topics, we will consider other substring searching algorithms more efficient than the described one. </p>
+ </body>
+</html>

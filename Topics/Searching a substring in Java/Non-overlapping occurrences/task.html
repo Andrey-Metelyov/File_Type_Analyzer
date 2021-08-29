@@ -1,0 +1,11 @@
+<h2>Non-overlapping occurrences</h2>
+<html>
+ <head></head>
+ <body>
+  <p>Let <span class="math-tex">\( i \)</span> and <span class="math-tex">\( j \)</span> are starting and ending indexes of a substring <span class="math-tex">\( s \)</span> in some string, <span class="math-tex">\( i^{\prime} \)</span> and <span class="math-tex">\( j^{\prime} \)</span> are starting and ending indexes of a substring <span class="math-tex">\( s^{\prime} \)</span> in the same string. <span class="math-tex">\( s \)</span> and <span class="math-tex">\( s^{\prime} \)</span> are called non-overlapping if <span class="math-tex">\( i \le j \lt i^{\prime} \le j^{\prime} \)</span>.</p> 
+  <p>Given two strings, a pattern and a text. Write a program that finds all non-overlapping occurrences of the pattern in the text.</p> 
+  <p><strong>Input:</strong> two strings, a pattern and a text, each is on a separate line. It is guaranteed that the length of the text is greater than $0$. </p> 
+  <p><strong>Output: </strong>the first line should contain the number of non-overlapping occurrences of the pattern in the text. The second line should contain all indexes of such occurrences separated by space. For two overlapping substrings, consider as occurrence the one that has the least starting index from the beginning of the text. If there are no occurrences, output only one line with $0$.</p> 
+  <p>Keep in mind that the empty string is a substring for any string. See the second test case as an example of how an empty pattern should be processed.</p>
+ </body>
+</html><br><b>Sample Input:</b><br><pre><code class="language-no-highlight">aba<br>ababababab<br></code></pre><br><b>Sample Output:</b><br><pre><code class="language-no-highlight">2<br>0 4</code></pre><br><br><b>Sample Input:</b><br><pre><code class="language-no-highlight"><br>abc<br></code></pre><br><b>Sample Output:</b><br><pre><code class="language-no-highlight">1<br>0</code></pre><br><br><br><font color="gray">Memory limit: 256 MB</font><br><font color="gray">Time limit: 8 seconds</font><br><br>
