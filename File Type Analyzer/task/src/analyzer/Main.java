@@ -1,116 +1,92 @@
 package analyzer;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
-import static java.lang.System.nanoTime;
+import static analyzer.PatternSearch.PatternSearch.KMPSearchFirst;
+
+class FileAnalyzerCallableResult {
+    String filename;
+    String description;
+
+    public FileAnalyzerCallableResult(String filename, String description) {
+        this.filename = filename;
+        this.description = description;
+    }
+}
+
+class FileAnalyzerCallable implements Callable<FileAnalyzerCallableResult> {
+    private final File file;
+    private final String pattern;
+    private final String description;
+
+    FileAnalyzerCallable(File file, String pattern, String description) {
+        this.file = file;
+        this.pattern = pattern;
+        this.description = description;
+    }
+
+    @Override
+    public FileAnalyzerCallableResult call() {
+        String result;
+        try {
+            byte[] allBytes = Files.readAllBytes(file.toPath());
+            byte[] patternBytes = pattern.getBytes();
+            if (KMPSearchFirst(allBytes, patternBytes) != -1) {
+                result = description;
+            } else {
+                result = "Unknown file type";
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            result = "Error reading file " + file.getName();
+        }
+        return new FileAnalyzerCallableResult(file.getName(), result);
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
         System.err.println("Arguments: " + Arrays.toString(args));
-        if (args.length < 4) {
+        if (args.length < 3) {
             System.out.println("java Main --naive huge_doc.pdf \"%PDF-\" \"PDF document\"");
             return;
         }
-        String algorithm = args[0];
-        String filename = args[1];
-        String pattern = args[2];
-        String description = args[3];
+        String directory = args[0];
+        String pattern = args[1];
+        String description = args[2];
 
+        File[] files = Path.of(directory).toFile().listFiles();
+        System.err.println("files: " + Arrays.toString(files));
+
+        if (files == null) {
+            return;
+        }
+        ExecutorService executor = Executors.newCachedThreadPool();
+        List<Future<FileAnalyzerCallableResult>> futures = new ArrayList<>();
+        for (File file : files) {
+            if (file.isFile()) {
+                futures.add(executor.submit(new FileAnalyzerCallable(file, pattern, description)));
+            }
+        }
         try {
-            byte[] allBytes = Files.readAllBytes(Paths.get(filename));
-//            System.err.println(Arrays.toString(allBytes));
-            byte[] patternBytes = pattern.getBytes();
-//            System.err.println(Arrays.toString(patternBytes));
-
-            int result;
-            long start = nanoTime();
-            if (algorithm.equals("--naive")) {
-                result = hasPattern(allBytes, patternBytes);
-            } else {
-                result = KMPSearchFirst(allBytes, patternBytes);
+            for (Future<FileAnalyzerCallableResult> future : futures) {
+                FileAnalyzerCallableResult res = future.get();
+                System.out.println(res.filename + ": " + res.description);
             }
-            long elapsed = nanoTime() - start;
-            System.err.println(result);
-            if (result != -1) {
-                System.out.println(description);
-            } else {
-                System.out.println("Unknown file type");
-            }
-            String el = String.format("%.3f", elapsed / 1000000.0);
-            System.out.println("It took " + el + " seconds");
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Exception");
+        } finally {
+            executor.shutdown();
         }
-    }
-
-    private static int hasPattern(byte[] allBytes, byte[] patternBytes) {
-//        System.err.println(Arrays.toString(patternBytes));
-//        System.err.println(Arrays.toString(allBytes));
-        int i = 0;
-        int j = 0;
-        while (i < allBytes.length) {
-            while (allBytes[i++] == patternBytes[j++]) {
-                if (j == patternBytes.length) {
-                    return i - j;
-                }
-            }
-            i = i - j + 1;
-            j = 0;
-        }
-        return -1;
-    }
-
-    public static int KMPSearchFirst(byte[] text, byte[] pattern) {
-//        System.err.println(Arrays.toString(text) + " " + Arrays.toString(pattern));
-        /* 1 */
-        int[] prefixFunc = prefixFunction(pattern);
-//        ArrayList<Integer> occurrences = new ArrayList<Integer>();
-        int j = 0;
-        /* 2 */
-        for (int i = 0; i < text.length; i++) {
-            /* 3 */
-            while (j > 0 && text[i] != pattern[j]) {
-                j = prefixFunc[j - 1];
-            }
-            /* 4 */
-            if (text[i] == pattern[j]) {
-                j += 1;
-            }
-            /* 5 */
-            if (j == pattern.length) {
-                return i - j + 1;
-            }
-        }
-        /* 6 */
-        return -1;
-    }
-
-    public static int[] prefixFunction(byte[] str) {
-        /* 1 */
-        int[] prefixFunc = new int[str.length];
-
-        /* 2 */
-        for (int i = 1; i < str.length; i++) {
-            /* 3 */
-            int j = prefixFunc[i - 1];
-
-            while (j > 0 && str[i] != str[j]) {
-                j = prefixFunc[j - 1];
-            }
-
-            /* 4 */
-            if (str[i] == str[j]) {
-                j += 1;
-            }
-
-            /* 5 */
-            prefixFunc[i] = j;
-        }
-
-        /* 6 */
-        return prefixFunc;
     }
 }

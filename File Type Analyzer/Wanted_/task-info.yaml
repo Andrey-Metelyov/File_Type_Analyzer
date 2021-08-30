@@ -183,6 +183,12 @@ files:
 
     }
   learner_created: false
+- name: src/analyzer/PatternSearch/PatternSearch.java
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/64/stages/345/implement#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: Mon, 30 Aug 2021 06:58:22 UTC
 record: -1
