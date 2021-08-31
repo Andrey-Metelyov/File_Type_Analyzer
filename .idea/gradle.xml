@@ -8,7 +8,7 @@
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="16" />
+        <option name="gradleJvm" value="#JAVA_INTERNAL" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -22,6 +22,13 @@
             <option value="$PROJECT_DIR$/Topics/Rabin-Karp algorithm in Java/Calculating a substring hash" />
             <option value="$PROJECT_DIR$/Topics/Rabin-Karp algorithm in Java/The number of distinct substrings" />
             <option value="$PROJECT_DIR$/Topics/Rabin-Karp algorithm in Java/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Alternating Fibonacci numbers" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Find a substring" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Fix the method to print strings in the reverse order" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/K-combination" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/N-th power" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Number of decompositions" />
+            <option value="$PROJECT_DIR$/Topics/Recursion/Theory" />
             <option value="$PROJECT_DIR$/Topics/Searching a substring in Java/All occurrences" />
             <option value="$PROJECT_DIR$/Topics/Searching a substring in Java/Non-overlapping occurrences" />
             <option value="$PROJECT_DIR$/Topics/Searching a substring in Java/The first occurrence" />
