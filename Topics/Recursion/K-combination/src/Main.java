@@ -4,6 +4,7 @@ public class Main {
 
     public static int comb(int n, int k) {
         // write your code here
+        return 0;
     }
 
     /* Do not change code below */

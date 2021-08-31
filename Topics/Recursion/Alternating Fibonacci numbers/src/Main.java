@@ -4,6 +4,7 @@ public class Main {
 
     public static long fib(long n){
         // write your code here
+        return 0;
     }
 
     /* Do not change code below */

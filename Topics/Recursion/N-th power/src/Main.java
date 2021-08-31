@@ -4,6 +4,7 @@ public class Main {
 
     public static double pow(double a, long n) {
         // write your code here
+        return Math.pow(a, n);
     }
 
     /* Do not change code below */
