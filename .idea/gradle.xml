@@ -19,6 +19,9 @@
             <option value="$PROJECT_DIR$/Topics/Knuth-Morris-Pratt algorithm in Java/Finding a string in a matrix (v2)" />
             <option value="$PROJECT_DIR$/Topics/Knuth-Morris-Pratt algorithm in Java/Non-overlapping occurrences" />
             <option value="$PROJECT_DIR$/Topics/Knuth-Morris-Pratt algorithm in Java/Theory" />
+            <option value="$PROJECT_DIR$/Topics/Rabin-Karp algorithm in Java/Calculating a substring hash" />
+            <option value="$PROJECT_DIR$/Topics/Rabin-Karp algorithm in Java/The number of distinct substrings" />
+            <option value="$PROJECT_DIR$/Topics/Rabin-Karp algorithm in Java/Theory" />
             <option value="$PROJECT_DIR$/Topics/Searching a substring in Java/All occurrences" />
             <option value="$PROJECT_DIR$/Topics/Searching a substring in Java/Non-overlapping occurrences" />
             <option value="$PROJECT_DIR$/Topics/Searching a substring in Java/The first occurrence" />
