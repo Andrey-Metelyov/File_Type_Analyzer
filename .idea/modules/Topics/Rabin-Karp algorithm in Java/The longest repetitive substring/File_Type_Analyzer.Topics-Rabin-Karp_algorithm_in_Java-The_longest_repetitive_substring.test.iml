@@ -22,5 +22,4 @@
     <orderEntry type="library" name="Gradle: org.assertj:assertj-core:3.11.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.easytesting:fest-util:1.2.5" level="project" />
   </component>
-  <component name="TestModuleProperties" production-module="File_Type_Analyzer.Topics-Rabin-Karp_algorithm_in_Java-The_longest_repetitive_substring.main" />
 </module>
