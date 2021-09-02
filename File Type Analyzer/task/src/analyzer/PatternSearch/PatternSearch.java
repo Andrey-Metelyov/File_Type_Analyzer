@@ -6,11 +6,11 @@ import java.util.List;
 import static java.lang.Math.floorMod;
 
 public class PatternSearch {
-    public static void main(String[] args) {
-        String text = "DDABCD";
-        String pattern = "DDA";
-        RKSearch(text, pattern);
-    }
+//    public static void main(String[] args) {
+//        String text = "DDABCD";
+//        String pattern = "DDA";
+//        RKSearch(text, pattern);
+//    }
 
     public static List<Integer> RKSearch(String text, String pattern) {
         final int a = 3;
